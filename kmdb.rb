@@ -321,8 +321,25 @@ puts "Movies"
 puts "======"
 puts ""
 
+
+
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
+
+all_movies = Movie.all
+#puts all_movies.inspect
+
+for movie in all_movies
+    title = movie["title"]
+    release_year = movie["release_year"]
+    rating = movie["rating"]
+    studio = Studio.find_by({"id" => movie["studio_id"]})
+    #puts studio.inspect
+    studio_name = studio["Name"]
+    printf "%-30s %-10s %-10s %s\n", title, release_year, rating, studio_name
+    # puts "#{title} #{release_year} #{rating} #{studio_name}"
+end
+
 
 
 
@@ -334,3 +351,18 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+
+all_roles = Role.all
+#puts all_roles.inspect
+
+for role in all_roles
+    movie = Movie.find_by ({"id" => role["movie_id"]})
+    movie_title = movie["title"]
+
+    actor = Actor.find_by ({"id" => role["actor_id"]})
+    actor_name = actor["Name"]
+
+    character_name = role ["character_name"]
+    printf "%-30s %-30s %s\n", movie_title, actor_name, character_name
+    # puts "#{movie_title} #{actor_name} #{character_name}"
+end 
